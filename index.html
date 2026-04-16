@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 沖繩家族旅行</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --bg:#f5f0e8;
+    --card:#ffffff;
+    --accent:#1a6b4a;
+    --accent-light:#e8f5ee;
+    --text:#1a1a1a;
+    --text-secondary:#444;
+    --border:#d4cfc6;
+    --tag-meal:#e86830;
+    --tag-stay:#2563a8;
+    --tag-spot:#7c3aed;
+    --shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+
+  html{font-size:18px;scroll-behavior:smooth}
+
+  body{
+    font-family:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.8;
+    -webkit-text-size-adjust:100%;
+    padding-bottom:80px;
+  }
+
+  /* ===== Header ===== */
+  .hero{
+    background:linear-gradient(135deg,#0d7377 0%,#14919b 100%);
+    color:#fff;
+    text-align:center;
+    padding:2.5rem 1.2rem 2rem;
+  }
+  .hero h1{font-size:1.6rem;font-weight:800;letter-spacing:.04em;margin-bottom:.3rem}
+  .hero .subtitle{font-size:1.05rem;opacity:.9}
+
+  /* ===== Legend ===== */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:.5rem;
+    justify-content:center;
+    padding:.8rem 1rem;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    font-size:.82rem;
+  }
+  .legend span{display:inline-flex;align-items:center;gap:.25rem}
+  .legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+  /* ===== Quick nav (sticky) ===== */
+  .day-nav{
+    position:sticky;top:0;z-index:100;
+    display:flex;overflow-x:auto;
+    background:#fff;
+    border-bottom:2px solid var(--accent);
+    -webkit-overflow-scrolling:touch;
+  }
+  .day-nav a{
+    flex:0 0 auto;
+    padding:.7rem 1rem;
+    text-decoration:none;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--accent);
+    white-space:nowrap;
+    border-right:1px solid var(--border);
+  }
+  .day-nav a:last-child{border-right:none}
+  .day-nav a:active{background:var(--accent-light)}
+
+  /* ===== Day section ===== */
+  .day-section{padding:1.2rem .8rem 0}
+  .day-header{
+    display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;
+    margin-bottom:.6rem;
+  }
+  .day-badge{
+    background:var(--accent);color:#fff;
+    font-size:1rem;font-weight:800;
+    padding:.3rem .8rem;border-radius:6px;
+  }
+  .day-title{font-size:1.15rem;font-weight:700;color:var(--text)}
+
+  /* ===== Overview timeline ===== */
+  .overview{
+    background:var(--accent-light);
+    border-radius:10px;
+    padding:.6rem .8rem;
+    margin-bottom:.8rem;
+    list-style:none;
+  }
+  .overview li{
+    display:flex;
+    align-items:flex-start;
+    gap:.6rem;
+    padding:.45rem 0;
+    border-bottom:1px dashed #c0d8cc;
+    font-size:.92rem;
+    line-height:1.6;
+  }
+  .overview li:last-child{border-bottom:none}
+  .overview .time{
+    flex:0 0 3.2rem;
+    font-weight:800;
+    color:var(--accent);
+    text-align:left;
+    white-space:nowrap;
+  }
+  .overview .act{flex:1}
+  .overview .dist{
+    font-size:.78rem;
+    color:#777;
+    margin-left:.2rem;
+  }
+
+  /* ===== Card ===== */
+  .card{
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    padding:1rem 1rem .8rem;
+    margin-bottom:.8rem;
+  }
+  .card-tag{
+    display:inline-block;
+    font-size:.75rem;font-weight:700;
+    padding:.15rem .55rem;border-radius:4px;
+    color:#fff;margin-bottom:.4rem;
+  }
+  .card-tag.meal{background:var(--tag-meal)}
+  .card-tag.stay{background:var(--tag-stay)}
+  .card-tag.spot{background:var(--tag-spot)}
+  .card-tag.transport{background:#555}
+  .card h3{font-size:1.1rem;font-weight:700;margin-bottom:.3rem;color:var(--text)}
+  .card .addr{font-size:.88rem;color:var(--text-secondary);margin-bottom:.2rem}
+  .card .detail{font-size:.88rem;color:var(--text-secondary);line-height:1.7;list-style:none;padding-left:0}
+  .card .detail li{margin-bottom:.15rem}
+  .card a{color:var(--accent);text-decoration:underline}
+  .map-link{
+    display:inline-block;
+    margin-top:.3rem;
+    font-size:.85rem;font-weight:600;
+    color:#d44;
+    text-decoration:none;
+  }
+  .map-link::before{content:"📍 "}
+  .map-link:active{opacity:.6}
+
+  /* ===== Flight info ===== */
+  .flight-box{
+    background:#eef6ff;border:2px solid #4a90d9;
+    border-radius:10px;padding:1rem;margin-bottom:.8rem;
+  }
+  .flight-box h3{color:#2563a8;font-size:1.05rem;margin-bottom:.3rem}
+  .flight-box .detail{font-size:.9rem}
+
+  /* ===== Footer ===== */
+  .page-footer{
+    text-align:center;padding:2rem 1rem;
+    font-size:.8rem;color:#888;
+  }
+
+  /* ===== Desktop widths ===== */
+  @media(min-width:640px){
+    .day-section{max-width:640px;margin:0 auto}
+    .hero h1{font-size:2rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <h1>🌺 2026 沖繩家族旅行</h1>
+  <p class="subtitle">4 / 24（四）— 4 / 28（一）・五天四夜</p>
+</header>
+
+<!-- ========== LEGEND ========== -->
+<div class="legend">
+  <span><span class="dot" style="background:var(--tag-meal)"></span>餐廳</span>
+  <span><span class="dot" style="background:var(--tag-spot)"></span>景點</span>
+  <span><span class="dot" style="background:var(--tag-stay)"></span>住宿</span>
+  <span><span class="dot" style="background:#555"></span>交通</span>
+</div>
+
+<!-- ========== DAY NAV ========== -->
+<nav class="day-nav" aria-label="每日快速跳轉">
+  <a href="#day1">Day 1</a>
+  <a href="#day2">Day 2</a>
+  <a href="#day3">Day 3</a>
+  <a href="#day4">Day 4</a>
+  <a href="#day5">Day 5</a>
+</nav>
+
+<!-- ================================================================
+     DAY 1
+     ================================================================ -->
+<section class="day-section" id="day1">
+  <div class="day-header">
+    <span class="day-badge">Day 1</span>
+    <span class="day-title">4 / 24（四）台灣 → 沖繩</span>
+  </div>
+
+  <ol class="overview">
+    <li><span class="time">15:00</span><span class="act">麗山街集合</span></li>
+    <li><span class="time">15:40</span><span class="act">出發前往機場<span class="dist">46.4km 33min</span></span></li>
+    <li><span class="time">16:30</span><span class="act">機場虎航櫃檯 7 號集合 Check-in</span></li>
+    <li><span class="time">17:00</span><span class="act">機場晚餐／輕食（預辦登機、安裝 eSim）</span></li>
+    <li><span class="time">18:30</span><span class="act">搭飛機前往沖繩<span class="dist">658km 約90min</span></span></li>
+    <li><span class="time">20:50</span><span class="act">抵達那霸機場（入境、領行李）</span></li>
+    <li><span class="time">22:30</span><span class="act">入住飯店<span class="dist">4km 8min</span></span></li>
+  </ol>
+
+  <!-- Flight -->
+  <div class="flight-box">
+    <h3>✈️ 航班資訊</h3>
+    <ul class="detail">
+      <li>航班：虎航 IT232</li>
+      <li>訂位代號：IF9VJB、T8MZNJ</li>
+      <li>出發 TPE 18:30 → 抵達 OKA 20:50</li>
+    </ul>
+  </div>
+
+  <!-- Hotel -->
+  <div class="card">
+    <span class="card-tag stay">住宿</span>
+    <h3>ホテルユクエスタ東町（含早餐）</h3>
+    <p class="addr">〒900-0034 沖縄県那覇市東町 7-22</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81988660620">+81 98-866-0620</a></li>
+      <li>予約番号：0HMX2V50（Jalan／現場付款／52,840 円）</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ホテルユクエスタ東町+沖縄県那覇市東町7-22" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     DAY 2
+     ================================================================ -->
+<section class="day-section" id="day2">
+  <div class="day-header">
+    <span class="day-badge">Day 2</span>
+    <span class="day-title">4 / 25（五）北部一日遊</span>
+  </div>
+
+  <ol class="overview">
+    <li><span class="time">08:00</span><span class="act">飯店早餐</span></li>
+    <li><span class="time">09:10</span><span class="act">前往租車</span></li>
+    <li><span class="time">10:20</span><span class="act">返回飯店拿行李</span></li>
+    <li><span class="time">11:00</span><span class="act">開始北上</span></li>
+    <li><span class="time">12:00</span><span class="act">読谷村漁協午餐<span class="dist">29.6km 57min</span></span></li>
+    <li><span class="time">14:00</span><span class="act">萬座毛<span class="dist">16.3km 22min</span></span></li>
+    <li><span class="time">16:00</span><span class="act">古宇利海洋塔<span class="dist">39.6km 54min</span></span></li>
+    <li><span class="time">18:00</span><span class="act">入住渡假小屋<span class="dist">14.9km 22min</span></span></li>
+    <li><span class="time">19:30</span><span class="act">百年古家大家晚餐<span class="dist">16.9km 27min</span></span></li>
+    <li><span class="time">21:30</span><span class="act">返回小屋</span></li>
+  </ol>
+
+  <!-- Rental car -->
+  <div class="card">
+    <span class="card-tag transport">租車</span>
+    <h3>ORIX 租車（旭橋站西店）</h3>
+    <p class="addr">沖縄県那覇市西 2-3-1</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81988660543">098-866-0543</a></li>
+      <li>予約番号：ROZR4EZ9（Chung Chia-Yu）</li>
+      <li>予約番号：OVG4ES1（Chung Jung-Ta）</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+旭橋駅西店+沖縄県那覇市西2-3-1" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Lunch -->
+  <div class="card">
+    <span class="card-tag meal">午餐</span>
+    <h3>読谷村漁業協同組合（海鮮料理）</h3>
+    <p class="addr">沖縄県中頭郡読谷村字都屋 33</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81989570225">+81 98-957-0225</a></li>
+      <li>⚠️ 餐廳只收現金</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=読谷村漁業協同組合+沖縄県中頭郡読谷村字都屋33" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Manzamo -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>万座毛周辺活性化施設</h3>
+    <p class="addr">沖縄県国頭郡恩納村字恩納 2767</p>
+    <ul class="detail">
+      <li>兩個免費停車場</li>
+      <li>3F 有瞭望台可坐著看海；2F 有簡餐</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=万座毛+沖縄県国頭郡恩納村字恩納2767" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Kouri Ocean Tower -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>古宇利海洋塔</h3>
+    <p class="addr">沖縄県国頭郡今帰仁村古宇利 538</p>
+    <ul class="detail">
+      <li>三個免費停車場</li>
+      <li>Mapcode：485 693 485*14</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=古宇利オーシャンタワー+沖縄県国頭郡今帰仁村古宇利538" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Hotel -->
+  <div class="card">
+    <span class="card-tag stay">住宿</span>
+    <h3>たびの邸宅 沖縄今帰仁（含早餐）</h3>
+    <p class="addr">〒905-0428 沖縄県国頭郡今帰仁村今泊 3543</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81501808372">+81 50-1808-3727</a></li>
+      <li>予約番号：nakijin001471（已付款）</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=たびの邸宅+沖縄今帰仁+沖縄県国頭郡今帰仁村今泊3543" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Dinner -->
+  <div class="card">
+    <span class="card-tag meal">晚餐</span>
+    <h3>百年古家 大家 うふやー（火鍋料理）</h3>
+    <p class="addr">沖縄県名護市中山 90 番地</p>
+    <ul class="detail">
+      <li>預約 19:30　六大一小（含阿古豬火鍋 ×2）</li>
+      <li>Mapcode：206 745 056*82</li>
+      <li>可刷卡</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=百年古家+大家+うふやー+沖縄県名護市中山90" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     DAY 3
+     ================================================================ -->
+<section class="day-section" id="day3">
+  <div class="day-header">
+    <span class="day-badge">Day 3</span>
+    <span class="day-title">4 / 26（六）水族館 ＆ 備瀨福木</span>
+  </div>
+
+  <ol class="overview">
+    <li><span class="time">07:30</span><span class="act">小屋早餐</span></li>
+    <li><span class="time">09:00</span><span class="act">美麗海水族館<span class="dist">6.93km 10min</span></span></li>
+    <li><span class="time">12:30</span><span class="act">海邦丸午餐<span class="dist">1.65km 6min</span></span></li>
+    <li><span class="time">14:00</span><span class="act">返回小屋小憩<span class="dist">7.86km 12min</span></span></li>
+    <li><span class="time">15:00</span><span class="act">備瀨福木<span class="dist">6.26km 9min</span></span></li>
+    <li><span class="time">18:00</span><span class="act">沖縄そば うっちや晚餐<span class="dist">8.5km 13min</span></span></li>
+    <li><span class="time">20:00</span><span class="act">返回小屋</span></li>
+  </ol>
+
+  <!-- Aquarium -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>美麗海水族館</h3>
+    <p class="addr">沖縄県国頭郡本部町字石川 424</p>
+    <ul class="detail">
+      <li>免費停車場：北口 P7 立體停車場</li>
+      <li>Mapcode：553 075 742</li>
+      <li>門票 2,180 日圓 / 人</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄美ら海水族館+沖縄県国頭郡本部町字石川424" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Lunch -->
+  <div class="card">
+    <span class="card-tag meal">午餐</span>
+    <h3>海邦丸 2 號店（海鮮料理）</h3>
+    <p class="addr">沖縄県国頭郡本部町山兴 1046-2</p>
+    <ul class="detail">
+      <li>建物底下可免費停車</li>
+      <li>有海鮮丼和定食</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海邦丸+沖縄県国頭郡本部町山川1046-2" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Bise Fukugi -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>備瀨福木林道</h3>
+    <p class="addr">沖縄県国頭郡本部町備瀬 389</p>
+    <ul class="detail">
+      <li>免費停車場</li>
+      <li>Mapcode：553 105 625*26</li>
+      <li>水牛車：四人一車 2,000 円</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=備瀬フクギ並木+沖縄県国頭郡本部町備瀬389" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Dinner -->
+  <div class="card">
+    <span class="card-tag meal">晚餐</span>
+    <h3>沖縄そば うっちや〜（沖繩麵）</h3>
+    <p class="addr">沖縄県国頭郡今帰仁村仲尾次 334</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81980435983">+81 980-43-5983</a></li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄そば+うっちや+沖縄県国頭郡今帰仁村仲尾次334" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     DAY 4
+     ================================================================ -->
+<section class="day-section" id="day4">
+  <div class="day-header">
+    <span class="day-badge">Day 4</span>
+    <span class="day-title">4 / 27（日）美國村 ＆ Parco City</span>
+  </div>
+
+  <ol class="overview">
+    <li><span class="time">07:30</span><span class="act">小屋早餐</span></li>
+    <li><span class="time">11:00</span><span class="act">出發南下</span></li>
+    <li><span class="time">12:00</span><span class="act">伽藍萬定食午餐<span class="dist">39.1km 50min</span></span></li>
+    <li><span class="time">13:30</span><span class="act">前往北谷</span></li>
+    <li><span class="time">14:20</span><span class="act">美國村 or 安良波公園<span class="dist">34.6km 38min</span></span></li>
+    <li><span class="time">16:00</span><span class="act">Parco City<span class="dist">8.95km 18min</span></span></li>
+    <li><span class="time">18:30</span><span class="act">敘敘苑晚餐</span></li>
+    <li><span class="time">20:30</span><span class="act">返回那霸</span></li>
+    <li><span class="time">20:45</span><span class="act">入住飯店<span class="dist">8.08km 16min</span></span></li>
+  </ol>
+
+  <!-- Lunch -->
+  <div class="card">
+    <span class="card-tag meal">午餐</span>
+    <h3>伽藍萬定食 Garamanjaku café（沖繩料理）</h3>
+    <p class="addr">沖縄県国頭郡金武町金武 10507-4</p>
+    <ul class="detail">
+      <li>預約 12:00　六大一小，6 份套餐</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=がらまんじゃく+沖縄県国頭郡金武町金武10507-4" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- American Village -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>美國村</h3>
+    <p class="addr">沖縄県中頭郡北谷町字美濱 9-1</p>
+    <ul class="detail">
+      <li>Mapcode：335 264 52*52</li>
+      <li>一樓雜貨／服飾店，二樓餐廳</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=美浜アメリカンビレッジ+沖縄県中頭郡北谷町字美浜9-1" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Araha Park -->
+  <div class="card">
+    <span class="card-tag spot">備案景點</span>
+    <h3>安良波公園（海盜船公園）</h3>
+    <p class="addr">沖縄県中頭郡北谷町北谷 2 丁目 21</p>
+    <ul class="detail">
+      <li>海盜船公園旁邊有停車場</li>
+      <li>安良波公園 中央の駐車場</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=安良波公園+沖縄県中頭郡北谷町北谷2丁目21" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Dinner -->
+  <div class="card">
+    <span class="card-tag meal">晚餐</span>
+    <h3>敘敘苑（韓式燒肉）</h3>
+    <p class="addr">Parco City 3F</p>
+    <ul class="detail">
+      <li>預約 18:30　六大一小</li>
+      <li>預約名 Yu（電話 886-966-779-756）</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=叙々苑+サンエーパルコシティ+沖縄" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Hotel -->
+  <div class="card">
+    <span class="card-tag stay">住宿</span>
+    <h3>東急ステイ 沖縄那覇</h3>
+    <p class="addr">〒900-0025 沖縄県那覇市壺川 3 丁目 2-1</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81988331090">+81 98-833-1090</a></li>
+      <li>Booking 訂位，兩單</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=東急ステイ沖縄那覇+沖縄県那覇市壺川3丁目2-1" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     DAY 5
+     ================================================================ -->
+<section class="day-section" id="day5">
+  <div class="day-header">
+    <span class="day-badge">Day 5</span>
+    <span class="day-title">4 / 28（一）那霸市區 → 返台</span>
+  </div>
+
+  <ol class="overview">
+    <li><span class="time">08:30</span><span class="act">飯店退房</span></li>
+    <li><span class="time">09:30</span><span class="act">第一牧志公設市場早餐<span class="dist">1.96km 8min</span></span></li>
+    <li><span class="time">10:30</span><span class="act">國際通散步</span></li>
+    <li><span class="time">12:00</span><span class="act">前往南部</span></li>
+    <li><span class="time">12:30</span><span class="act">魚屋直營 Uomaru 午餐<span class="dist">5.2km 14min</span></span></li>
+    <li><span class="time">13:30</span><span class="act">DDM 水族館 / iias 豐崎<span class="dist">5.1km 8min</span></span></li>
+    <li><span class="time">17:30</span><span class="act">海洋食堂晚餐<span class="dist">3.5km 7min</span></span></li>
+    <li><span class="time">18:30</span><span class="act">加油還車 ORIX 那霸空港店<span class="dist">3.4km 7min</span></span></li>
+    <li><span class="time">19:00</span><span class="act">搭接駁車前往機場</span></li>
+    <li><span class="time">19:30</span><span class="act">機場報到</span></li>
+    <li><span class="time">21:40</span><span class="act">搭飛機返回台灣</span></li>
+    <li><span class="time">22:40</span><span class="act">計程車接送回家</span></li>
+  </ol>
+
+  <!-- Breakfast -->
+  <div class="card">
+    <span class="card-tag meal">早餐</span>
+    <h3>第一牧志公設市場（海鮮料理）</h3>
+    <p class="addr">那霸市第一牧志公設市場</p>
+    <ul class="detail">
+      <li>停車場：タイムズ那覇まちぐゎー</li>
+      <li>或：國際通 Lantana 飯店旁巷子進去左手邊小停車場（8 個位）</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=第一牧志公設市場+那覇市" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Lunch -->
+  <div class="card">
+    <span class="card-tag meal">午餐</span>
+    <h3>魚屋直營 Uomaru 小祿本店（海鮮料理）</h3>
+    <p class="addr">〒901-0145 沖縄県那覇市高良 3 丁目 5-1</p>
+    <ul class="detail">
+      <li>電話：<a href="tel:+81989870889">+81 98-987-0889</a></li>
+      <li>魚鋪老闆直營的魚生食店</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=魚屋直営食堂+うおまる+沖縄県那覇市高良3丁目5-1" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- DMMかりゆし -->
+  <div class="card">
+    <span class="card-tag spot">景點</span>
+    <h3>DDM 水族館 / iias 豐崎</h3>
+    <p class="addr">iias 沖縄豊崎</p>
+    <ul class="detail">
+      <li>3,000 個免費停車位</li>
+      <li>Mapcode：232 543 400*25</li>
+      <li>全票 3,200 円 / 人；幼兒免費</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=DMMかりゆし水族館+iias沖縄豊崎" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Dinner -->
+  <div class="card">
+    <span class="card-tag meal">晚餐</span>
+    <h3>海洋食堂 Kaiyo Diner（豆腐料理）</h3>
+    <p class="addr">沖縄県豊見城市名嫁地 192-10</p>
+    <ul class="detail">
+      <li>餐廳門口有停車位</li>
+      <li>有中文菜單</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海洋食堂+沖縄県豊見城市名嘉地192-10" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Return car -->
+  <div class="card">
+    <span class="card-tag transport">還車</span>
+    <h3>ORIX 那霸空港店</h3>
+    <p class="addr">沖縄県豊見城市豊崎 1-1174</p>
+    <ul class="detail">
+      <li>還車後搭接駁車前往機場</li>
+    </ul>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+那覇空港店+沖縄県豊見城市豊崎1-1174" target="_blank" rel="noopener">Google Maps 導航</a>
+  </div>
+
+  <!-- Return flight -->
+  <div class="flight-box">
+    <h3>✈️ 回程航班</h3>
+    <ul class="detail">
+      <li>21:40 搭飛機返回台灣台北</li>
+      <li>22:40 抵達桃園機場，計程車接送回家</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="page-footer">
+  <p>時間＝行程起始時間 ｜ Km＝車程距離 ｜ Min＝車程時間</p>
+  <p style="margin-top:.3rem">Family C・沖繩 2026 🌴</p>
+</footer>
+
+</body>
+</html>
