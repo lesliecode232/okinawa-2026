@@ -190,6 +190,161 @@
     .day-section{max-width:640px;margin:0 auto}
     .hero h1{font-size:2rem}
   }
+
+  /* ===== FX Calculator ===== */
+  #fx-fab{
+    position:fixed;
+    right:1rem;
+    bottom:1.5rem;
+    z-index:200;
+    width:72px;height:72px;border-radius:50%;
+    background:var(--accent);color:#fff;border:none;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.15rem;font-weight:800;letter-spacing:.02em;
+    font-family:inherit;
+    -webkit-tap-highlight-color:transparent;
+    transition:background-color .2s ease,transform .1s ease;
+  }
+  #fx-fab:hover{background:#125a3d}
+  #fx-fab:active{transform:scale(.94)}
+
+  .fx-modal{
+    position:fixed;inset:0;z-index:300;
+    display:none;
+    align-items:flex-end;justify-content:center;
+    background:rgba(0,0,0,.45);
+  }
+  .fx-modal.is-open{display:flex}
+
+  .fx-sheet{
+    width:100%;max-width:420px;
+    background:var(--card);
+    border-radius:16px 16px 0 0;
+    box-shadow:0 -6px 24px rgba(0,0,0,.18);
+    padding:1rem 1rem 1.2rem;
+    animation:fxSlideUp .22s ease-out;
+    max-height:92vh;overflow-y:auto;
+  }
+  @keyframes fxSlideUp{
+    from{transform:translateY(24px);opacity:.6}
+    to{transform:translateY(0);opacity:1}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .fx-sheet{animation:none}
+  }
+
+  .fx-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:.6rem;
+  }
+  .fx-head h2{font-size:1rem;font-weight:700;color:var(--text)}
+  .fx-close{
+    background:none;border:none;font-size:1.4rem;color:#666;
+    width:32px;height:32px;border-radius:50%;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .fx-close:active{background:#eee}
+
+  /* Rate display */
+  .fx-rate{
+    background:#fafaf8;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.8rem 1rem;
+    margin-bottom:.8rem;
+  }
+  .fx-rate-label{font-size:.82rem;color:#666;margin-bottom:.15rem}
+  .fx-rate-main{
+    display:flex;align-items:baseline;gap:.35rem;
+    font-size:1.6rem;font-weight:700;color:var(--text);
+    line-height:1.2;
+  }
+  .fx-rate-input{
+    font:inherit;color:inherit;
+    width:5.5rem;
+    border:none;border-bottom:1.5px dashed var(--accent);
+    background:transparent;padding:0 .1rem;
+    outline:none;
+  }
+  .fx-rate-input:focus{border-bottom-style:solid}
+  .fx-rate-unit{font-size:1.2rem;font-weight:600}
+  .fx-rate-hint{font-size:.72rem;color:#888;margin-top:.25rem}
+
+  /* Currency fields */
+  .fx-fields{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    gap:.5rem;align-items:stretch;
+    margin-bottom:.9rem;
+  }
+  .fx-field{
+    background:#fff;
+    border:1.5px solid var(--border);
+    border-radius:10px;
+    padding:.55rem .7rem;
+    min-width:0;
+  }
+  .fx-field .fx-field-label{
+    font-size:.72rem;color:#888;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .fx-field .fx-field-value{
+    font-size:1.4rem;font-weight:700;color:var(--text);
+    margin-top:.15rem;
+    word-break:break-all;line-height:1.2;
+    min-height:1.6em;
+  }
+  .fx-field.is-active{
+    border-color:var(--accent);
+    background:var(--accent-light);
+  }
+  .fx-field.is-active .fx-field-label{color:var(--accent);font-weight:700}
+  .fx-field.is-active .fx-field-value::after{
+    content:"|";
+    margin-left:2px;
+    color:var(--accent);
+    animation:fxBlink 1s steps(2) infinite;
+    font-weight:400;
+  }
+  @keyframes fxBlink{50%{opacity:0}}
+
+  .fx-swap{
+    align-self:center;
+    width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--border);
+    background:#fff;color:var(--accent);
+    font-size:1.1rem;font-weight:700;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+    transition:transform .2s ease;
+  }
+  .fx-swap:active{transform:rotate(180deg)}
+
+  /* Keypad */
+  .fx-keypad{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:.45rem;
+  }
+  .fx-key{
+    min-height:52px;
+    font-size:1.25rem;font-weight:600;
+    background:#f3efe8;color:var(--text);
+    border:none;border-radius:10px;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:background-color .12s ease,transform .08s ease;
+  }
+  .fx-key:active{background:#e4ded2;transform:translateY(1px)}
+  .fx-key.fx-key-fn{background:#eae4d6;color:#555}
+  .fx-key.fx-key-ac{
+    grid-column:span 3;
+    background:#fdecec;color:#c4332a;
+  }
+  .fx-key.fx-key-ac:active{background:#f7d9d6}
 </style>
 </head>
 <body>
@@ -605,6 +760,220 @@
   <p>時間＝行程起始時間 ｜ Km＝車程距離 ｜ Min＝車程時間</p>
   <p style="margin-top:.3rem">Family C・沖繩 2026 🌴</p>
 </footer>
+
+<!-- ========== FX CALCULATOR ========== -->
+<button id="fx-fab" type="button" aria-label="開啟匯率計算機">¥⇄$</button>
+
+<div id="fx-modal" class="fx-modal" role="dialog" aria-modal="true" aria-labelledby="fx-title">
+  <div class="fx-sheet" role="document">
+    <div class="fx-head">
+      <h2 id="fx-title">匯率計算機</h2>
+      <button type="button" class="fx-close" id="fx-close" aria-label="關閉">×</button>
+    </div>
+
+    <!-- Rate -->
+    <div class="fx-rate">
+      <div class="fx-rate-label">1 日圓 等於</div>
+      <div class="fx-rate-main">
+        <input id="fx-rate-input" class="fx-rate-input" type="number" inputmode="decimal" step="0.0001" min="0" value="0.20" aria-label="匯率（新臺幣）">
+        <span class="fx-rate-unit">新臺幣</span>
+      </div>
+      <div class="fx-rate-hint">匯率可點擊修改・自動儲存</div>
+    </div>
+
+    <!-- Fields -->
+    <div class="fx-fields">
+      <button type="button" class="fx-field is-active" id="fx-field-jpy" data-cur="JPY">
+        <div class="fx-field-label"><span>日圓 JPY</span><span>¥</span></div>
+        <div class="fx-field-value" id="fx-value-jpy">0</div>
+      </button>
+      <button type="button" class="fx-swap" id="fx-swap" aria-label="交換主輸入幣別">⇅</button>
+      <button type="button" class="fx-field" id="fx-field-twd" data-cur="TWD">
+        <div class="fx-field-label"><span>新臺幣 TWD</span><span>NT$</span></div>
+        <div class="fx-field-value" id="fx-value-twd">0.00</div>
+      </button>
+    </div>
+
+    <!-- Keypad -->
+    <div class="fx-keypad">
+      <button type="button" class="fx-key" data-key="7">7</button>
+      <button type="button" class="fx-key" data-key="8">8</button>
+      <button type="button" class="fx-key" data-key="9">9</button>
+      <button type="button" class="fx-key" data-key="4">4</button>
+      <button type="button" class="fx-key" data-key="5">5</button>
+      <button type="button" class="fx-key" data-key="6">6</button>
+      <button type="button" class="fx-key" data-key="1">1</button>
+      <button type="button" class="fx-key" data-key="2">2</button>
+      <button type="button" class="fx-key" data-key="3">3</button>
+      <button type="button" class="fx-key fx-key-fn" data-key=".">.</button>
+      <button type="button" class="fx-key" data-key="0">0</button>
+      <button type="button" class="fx-key fx-key-fn" data-key="back" aria-label="退格">⌫</button>
+      <button type="button" class="fx-key fx-key-ac" data-key="ac">AC 清除</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var RATE_KEY = 'fxRate';
+  var DEFAULT_RATE = 0.20;
+
+  var modal = document.getElementById('fx-modal');
+  var fab = document.getElementById('fx-fab');
+  var closeBtn = document.getElementById('fx-close');
+  var rateInput = document.getElementById('fx-rate-input');
+  var fieldJPY = document.getElementById('fx-field-jpy');
+  var fieldTWD = document.getElementById('fx-field-twd');
+  var valueJPY = document.getElementById('fx-value-jpy');
+  var valueTWD = document.getElementById('fx-value-twd');
+  var swapBtn = document.getElementById('fx-swap');
+  var keypad = document.querySelector('.fx-keypad');
+
+  var rate = parseFloat(localStorage.getItem(RATE_KEY));
+  if (!isFinite(rate) || rate <= 0) rate = DEFAULT_RATE;
+  rateInput.value = rate;
+
+  var active = 'JPY';
+  var inputValue = '0';
+
+  function formatJPY(n){
+    if (!isFinite(n)) return '0';
+    return Math.round(n).toLocaleString('en-US');
+  }
+  function formatTWD(n){
+    if (!isFinite(n)) return '0.00';
+    return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function formatActiveDisplay(str, cur){
+    if (str === '' || str === '.') return cur === 'JPY' ? '0' : '0';
+    var num = parseFloat(str);
+    if (!isFinite(num)) num = 0;
+    var hasDot = str.indexOf('.') !== -1;
+    var parts = str.split('.');
+    var intPart = parts[0] || '0';
+    var intNum = parseInt(intPart, 10);
+    if (!isFinite(intNum)) intNum = 0;
+    var intStr = intNum.toLocaleString('en-US');
+    if (hasDot){
+      return intStr + '.' + (parts[1] || '');
+    }
+    return intStr;
+  }
+
+  function render(){
+    var num = parseFloat(inputValue);
+    if (!isFinite(num)) num = 0;
+    if (active === 'JPY'){
+      valueJPY.textContent = formatActiveDisplay(inputValue, 'JPY');
+      valueTWD.textContent = formatTWD(num * rate);
+      fieldJPY.classList.add('is-active');
+      fieldTWD.classList.remove('is-active');
+    } else {
+      valueTWD.textContent = formatActiveDisplay(inputValue, 'TWD');
+      valueJPY.textContent = formatJPY(rate > 0 ? num / rate : 0);
+      fieldTWD.classList.add('is-active');
+      fieldJPY.classList.remove('is-active');
+    }
+  }
+
+  function openModal(){
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  fab.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('is-open')){
+      closeModal();
+    }
+  });
+
+  rateInput.addEventListener('input', function(){
+    var v = parseFloat(rateInput.value);
+    if (isFinite(v) && v > 0){
+      rate = v;
+      localStorage.setItem(RATE_KEY, String(v));
+      render();
+    }
+  });
+  rateInput.addEventListener('blur', function(){
+    var v = parseFloat(rateInput.value);
+    if (!isFinite(v) || v <= 0){
+      rate = DEFAULT_RATE;
+      rateInput.value = DEFAULT_RATE;
+      localStorage.setItem(RATE_KEY, String(DEFAULT_RATE));
+      render();
+    }
+  });
+
+  function setActive(cur){
+    if (cur === active) return;
+    var num = parseFloat(inputValue);
+    if (!isFinite(num)) num = 0;
+    if (active === 'JPY' && cur === 'TWD'){
+      var twd = num * rate;
+      inputValue = twd === 0 ? '0' : twd.toFixed(2).replace(/\.?0+$/,'') || '0';
+      if (inputValue === '') inputValue = '0';
+    } else if (active === 'TWD' && cur === 'JPY'){
+      var jpy = rate > 0 ? num / rate : 0;
+      inputValue = String(Math.round(jpy));
+    }
+    active = cur;
+    render();
+  }
+
+  fieldJPY.addEventListener('click', function(){ setActive('JPY'); });
+  fieldTWD.addEventListener('click', function(){ setActive('TWD'); });
+  swapBtn.addEventListener('click', function(){
+    setActive(active === 'JPY' ? 'TWD' : 'JPY');
+  });
+
+  keypad.addEventListener('click', function(e){
+    var btn = e.target.closest('.fx-key');
+    if (!btn) return;
+    var key = btn.getAttribute('data-key');
+    if (key === 'ac'){
+      inputValue = '0';
+    } else if (key === 'back'){
+      if (inputValue.length <= 1){
+        inputValue = '0';
+      } else {
+        inputValue = inputValue.slice(0,-1);
+      }
+    } else if (key === '.'){
+      if (active === 'JPY') return;
+      if (inputValue.indexOf('.') === -1){
+        inputValue = (inputValue === '' ? '0' : inputValue) + '.';
+      }
+    } else {
+      var digits = inputValue.replace('.','');
+      if (digits.length >= 10) return;
+      if (inputValue === '0'){
+        inputValue = key;
+      } else {
+        inputValue = inputValue + key;
+      }
+      if (active === 'TWD'){
+        var dotIdx = inputValue.indexOf('.');
+        if (dotIdx !== -1 && inputValue.length - dotIdx - 1 > 2){
+          inputValue = inputValue.slice(0, dotIdx + 3);
+        }
+      }
+    }
+    render();
+  });
+
+  render();
+})();
+</script>
 
 </body>
 </html>
