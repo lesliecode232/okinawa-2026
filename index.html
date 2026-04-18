@@ -143,15 +143,33 @@
   .card .detail{font-size:.88rem;color:var(--text-secondary);line-height:1.7;list-style:none;padding-left:0}
   .card .detail li{margin-bottom:.15rem}
   .card a{color:var(--accent);text-decoration:underline}
-  .map-link{
-    display:inline-block;
-    margin-top:.3rem;
-    font-size:.85rem;font-weight:600;
-    color:#d44;
+  /* ===== Modern Outline Button ===== */
+  a.map-link{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:.8rem;
+    padding:.75rem 2rem;
+    min-width:11rem;
+    font-size:.92rem;
+    font-weight:600;
+    letter-spacing:.08em;
+    color:var(--accent);
     text-decoration:none;
+    background:transparent;
+    border:1.5px solid var(--accent);
+    border-radius:6px;
+    cursor:pointer;
+    transition:background-color .2s ease,color .2s ease,transform .1s ease;
+    -webkit-tap-highlight-color:transparent;
   }
-  .map-link::before{content:"📍 "}
-  .map-link:active{opacity:.6}
+  a.map-link:hover{
+    background:var(--accent);
+    color:#fff;
+  }
+  a.map-link:active{
+    transform:translateY(1px);
+  }
 
   /* ===== Flight info ===== */
   .flight-box{
@@ -237,7 +255,7 @@
       <li>電話：<a href="tel:+81988660620">+81 98-866-0620</a></li>
       <li>予約番号：0HMX2V50（Jalan／現場付款／52,840 円）</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ホテルユクエスタ東町+沖縄県那覇市東町7-22" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ホテルユクエスタ東町+沖縄県那覇市東町7-22" target="_blank" rel="noopener">Google Maps</a>
   </div>
 </section>
 
@@ -273,7 +291,7 @@
       <li>予約番号：ROZR4EZ9（Chung Chia-Yu）</li>
       <li>予約番号：OVG4ES1（Chung Jung-Ta）</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+旭橋駅西店+沖縄県那覇市西2-3-1" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+旭橋駅西店+沖縄県那覇市西2-3-1" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Lunch -->
@@ -285,7 +303,7 @@
       <li>電話：<a href="tel:+81989570225">+81 98-957-0225</a></li>
       <li>⚠️ 餐廳只收現金</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=読谷村漁業協同組合+沖縄県中頭郡読谷村字都屋33" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=読谷村漁業協同組合+沖縄県中頭郡読谷村字都屋33" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Manzamo -->
@@ -297,7 +315,7 @@
       <li>兩個免費停車場</li>
       <li>3F 有瞭望台可坐著看海；2F 有簡餐</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=万座毛+沖縄県国頭郡恩納村字恩納2767" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=万座毛+沖縄県国頭郡恩納村字恩納2767" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Kouri Ocean Tower -->
@@ -309,7 +327,7 @@
       <li>三個免費停車場</li>
       <li>Mapcode：485 693 485*14</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=古宇利オーシャンタワー+沖縄県国頭郡今帰仁村古宇利538" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=古宇利オーシャンタワー+沖縄県国頭郡今帰仁村古宇利538" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Hotel -->
@@ -321,7 +339,7 @@
       <li>電話：<a href="tel:+81501808372">+81 50-1808-3727</a></li>
       <li>予約番号：nakijin001471（已付款）</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=たびの邸宅+沖縄今帰仁+沖縄県国頭郡今帰仁村今泊3543" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=たびの邸宅+沖縄今帰仁+沖縄県国頭郡今帰仁村今泊3543" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Dinner -->
@@ -334,7 +352,7 @@
       <li>Mapcode：206 745 056*82</li>
       <li>可刷卡</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=百年古家+大家+うふやー+沖縄県名護市中山90" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=百年古家+大家+うふやー+沖縄県名護市中山90" target="_blank" rel="noopener">Google Maps</a>
   </div>
 </section>
 
@@ -367,7 +385,7 @@
       <li>Mapcode：553 075 742</li>
       <li>門票 2,180 日圓 / 人</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄美ら海水族館+沖縄県国頭郡本部町字石川424" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄美ら海水族館+沖縄県国頭郡本部町字石川424" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Lunch -->
@@ -379,7 +397,7 @@
       <li>建物底下可免費停車</li>
       <li>有海鮮丼和定食</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海邦丸+沖縄県国頭郡本部町山川1046-2" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海邦丸+沖縄県国頭郡本部町山川1046-2" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Bise Fukugi -->
@@ -392,7 +410,7 @@
       <li>Mapcode：553 105 625*26</li>
       <li>水牛車：四人一車 2,000 円</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=備瀬フクギ並木+沖縄県国頭郡本部町備瀬389" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=備瀬フクギ並木+沖縄県国頭郡本部町備瀬389" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Dinner -->
@@ -403,7 +421,7 @@
     <ul class="detail">
       <li>電話：<a href="tel:+81980435983">+81 980-43-5983</a></li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄そば+うっちや+沖縄県国頭郡今帰仁村仲尾次334" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=沖縄そば+うっちや+沖縄県国頭郡今帰仁村仲尾次334" target="_blank" rel="noopener">Google Maps</a>
   </div>
 </section>
 
@@ -436,7 +454,7 @@
     <ul class="detail">
       <li>預約 12:00　六大一小，6 份套餐</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=がらまんじゃく+沖縄県国頭郡金武町金武10507-4" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=がらまんじゃく+沖縄県国頭郡金武町金武10507-4" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- American Village -->
@@ -448,7 +466,7 @@
       <li>Mapcode：335 264 52*52</li>
       <li>一樓雜貨／服飾店，二樓餐廳</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=美浜アメリカンビレッジ+沖縄県中頭郡北谷町字美浜9-1" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=美浜アメリカンビレッジ+沖縄県中頭郡北谷町字美浜9-1" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Araha Park -->
@@ -460,7 +478,7 @@
       <li>海盜船公園旁邊有停車場</li>
       <li>安良波公園 中央の駐車場</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=安良波公園+沖縄県中頭郡北谷町北谷2丁目21" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=安良波公園+沖縄県中頭郡北谷町北谷2丁目21" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Dinner -->
@@ -472,7 +490,7 @@
       <li>預約 18:30　六大一小</li>
       <li>預約名 Yu（電話 886-966-779-756）</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=叙々苑+サンエーパルコシティ+沖縄" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=叙々苑+サンエーパルコシティ+沖縄" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Hotel -->
@@ -484,7 +502,7 @@
       <li>電話：<a href="tel:+81988331090">+81 98-833-1090</a></li>
       <li>Booking 訂位，兩單</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=東急ステイ沖縄那覇+沖縄県那覇市壺川3丁目2-1" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=東急ステイ沖縄那覇+沖縄県那覇市壺川3丁目2-1" target="_blank" rel="noopener">Google Maps</a>
   </div>
 </section>
 
@@ -521,7 +539,7 @@
       <li>停車場：タイムズ那覇まちぐゎー</li>
       <li>或：國際通 Lantana 飯店旁巷子進去左手邊小停車場（8 個位）</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=第一牧志公設市場+那覇市" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=第一牧志公設市場+那覇市" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Lunch -->
@@ -533,7 +551,7 @@
       <li>電話：<a href="tel:+81989870889">+81 98-987-0889</a></li>
       <li>魚鋪老闆直營的魚生食店</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=魚屋直営食堂+うおまる+沖縄県那覇市高良3丁目5-1" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=魚屋直営食堂+うおまる+沖縄県那覇市高良3丁目5-1" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- DMMかりゆし -->
@@ -546,7 +564,7 @@
       <li>Mapcode：232 543 400*25</li>
       <li>全票 3,200 円 / 人；幼兒免費</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=DMMかりゆし水族館+iias沖縄豊崎" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=DMMかりゆし水族館+iias沖縄豊崎" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Dinner -->
@@ -558,7 +576,7 @@
       <li>餐廳門口有停車位</li>
       <li>有中文菜單</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海洋食堂+沖縄県豊見城市名嘉地192-10" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=海洋食堂+沖縄県豊見城市名嘉地192-10" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Return car -->
@@ -569,7 +587,7 @@
     <ul class="detail">
       <li>還車後搭接駁車前往機場</li>
     </ul>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+那覇空港店+沖縄県豊見城市豊崎1-1174" target="_blank" rel="noopener">Google Maps 導航</a>
+    <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=ORIX+那覇空港店+沖縄県豊見城市豊崎1-1174" target="_blank" rel="noopener">Google Maps</a>
   </div>
 
   <!-- Return flight -->
